@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod, ABCMeta
 from enum import Enum, EnumMeta
-from typing import Tuple, Self
+from typing import Tuple
 from pydantic import BaseModel
 
 EIGHT_TRIGRAM_TEXT_ICON_QIAN = '☰'
@@ -67,7 +67,7 @@ class TrigramType(Enum):
     )
 
     @classmethod
-    def get_base_trigram(cls, value: tuple) -> Self:
+    def get_base_trigram(cls, value: tuple):
         match value:
             case (True, True, True, ):
                 return cls.QIAN

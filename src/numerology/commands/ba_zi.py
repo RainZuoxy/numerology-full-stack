@@ -30,6 +30,7 @@ class GenerateBaZiChartCommand(BaseCommand):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__ba_zi = None
+        self.help = "根据阳历转换阴历，并生成八字、十神、大运等基本信息。"
         self.params = [self.PARAM_NAME, self.PARAM_DOB_TIME, self.PARAM_GENDER, self.PARAM_FORMAT]
 
     @classmethod
@@ -84,5 +85,5 @@ def generate_bazi_results(**kwargs):
         print(e)
 
 
-if __name__ == '__main__':
+def main():
     numerology_group()

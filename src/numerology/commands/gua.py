@@ -36,6 +36,8 @@ class QueryTrigramCommand(BaseCommand):
         return trigram64
 
     def to_table(self):
+        ...
+
 
 @numerology_group.command(cls=QueryTrigramCommand)
 def query_trigram(**kwargs):
@@ -53,5 +55,5 @@ def query_trigram(**kwargs):
         print(e)
 
 
-if __name__ == '__main__':
+def main():
     numerology_group()
