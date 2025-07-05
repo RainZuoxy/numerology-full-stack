@@ -1,0 +1,27 @@
+[project]
+name = "numerology"
+version = "0.1.0"
+description = ""
+authors = ["Michael_Zuo <michael_zuoxy@foxmail.com>"]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10.17"
+dependencies = [
+    "lunardate>=0.2.2",
+    "ephem==4.1.6",
+    "clic>==8.1.7",
+    "loguru==0.7.3",
+    #    python-dateutil,
+    #    "pydantic",
+    #    "fastapi>=0.115.12",
+]
+
+[tool.uv.pip]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
