@@ -1,10 +1,6 @@
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Any
-
 from pydantic import BaseModel
-
-from numerology.models.wu_xing import WuXingSet
+# from numerology.models.wu_xing import WuXingRegister
 from numerology.models.pillar import PillarItem
 from numerology.models.jia_zi import TianGan, DiZhi, JiaZi
 
@@ -17,17 +13,12 @@ class BaZiGenerator(BaseModel):
     day_pillar: PillarItem = None
     hour_pillar: PillarItem = None
 
-    def model_post_init(self,__context: Any):
-        self.init()
-
-    # def __init__(self, dob_time: datetime, lunar_dob_time: datetime):
-    #     super().__init__()
-    #     self.dob_time, self.lunar_dob_time = dob_time, lunar_dob_time
-    #     self._tian_gan_list, self._di_zhi_list = None, None
+    # def model_post_init(self,__context: Any):
+    #     self.init()
     #
-
-    def init(self):
-        WuXingSet.init()
+    # @staticmethod
+    # def init():
+    #     WuXingSet.init()
 
     def get_dob_time(self):
         return self.dob_time
@@ -128,11 +119,10 @@ class BaZiGenerator(BaseModel):
         return PillarItem(name='时柱', tian_gan=tian_gan, di_zhi=di_zhi)
 
     def analysis_shi_shen(self):
-        self.year_pillar.tian_gan.get_shi_shen(self.day_pillar.tian_gan)
-        self.year_pillar.di_zhi.get_shi_shen(self.day_pillar.tian_gan)
-        self.month_pillar.tian_gan.get_shi_shen(self.day_pillar.tian_gan)
-        self.month_pillar.di_zhi.get_shi_shen(self.day_pillar.tian_gan)
-        self.day_pillar.di_zhi.get_shi_shen(self.day_pillar.tian_gan)
-        self.hour_pillar.tian_gan.get_shi_shen(self.day_pillar.tian_gan)
-        self.hour_pillar.di_zhi.get_shi_shen(self.day_pillar.tian_gan)
-
+        self.year_pillar.tian_gan.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.year_pillar.di_zhi.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.month_pillar.tian_gan.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.month_pillar.di_zhi.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.day_pillar.di_zhi.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.hour_pillar.tian_gan.get_shi_shen(day_master=self.day_pillar.tian_gan)
+        self.hour_pillar.di_zhi.get_shi_shen(day_master=self.day_pillar.tian_gan)
