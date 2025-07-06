@@ -1,33 +1,34 @@
 from numerology.core.base import CircularLinkedList, BaseNode, BaseRules, Singleton, BaseProperty
-from numerology.const.wu_xing import WuXingRelationship, BaseWuXing
+from numerology.const.wu_xing import WuXingRelationshipType
+from numerology.models.wu_xing import WuXingItem
 
 
 class WuXingNode(BaseNode, BaseRules):
 
     def produce(self):
-        return self.find_by_index(index=WuXingRelationship.PRODUCE.value)
+        return self.find_by_index(index=WuXingRelationshipType.PRODUCED.value)
 
     # 克
-    def restrain(self):
-        return self.find_by_index(index=WuXingRelationship.RESTRAIN.value)
+    def destroy(self):
+        return self.find_by_index(index=WuXingRelationshipType.DESTROYED.value)
 
     # 耗
     def consume(self):
-        return self.find_by_index(index=WuXingRelationship.CONSUME.value)
+        return self.find_by_index(index=WuXingRelationshipType.CONSUMED.value)
 
     # 泄
     def weaken(self):
-        return self.find_by_index(index=WuXingRelationship.WEAKEN.value)
+        return self.find_by_index(index=WuXingRelationshipType.WEAKENED.value)
 
     # 助
     def support(self):
-        return self.find_by_index(index=WuXingRelationship.SUPPORT.value)
+        return self.find_by_index(index=WuXingRelationshipType.SUPPORTED.value)
 
     def get_relationship(self, target: str):
         while True:
             if self.produce().data == target:
                 return '生'
-            elif self.restrain().data == target:
+            elif self.destroy().data == target:
                 return '克'
             elif self.consume().data == target:
                 return '耗'
@@ -48,4 +49,4 @@ class WuXing(Singleton, BaseProperty):
         return WuXingCircularLinkedList
 
     def get_items(self):
-        return BaseWuXing
+        return WuXingItem

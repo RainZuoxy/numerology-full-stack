@@ -22,8 +22,8 @@ class TianGanNode(BaseNode, BaseRules):
         return self.__search_validate_wuxing(target_wuxing=produce_wuxing)
 
     # 克
-    def restrain(self):
-        restrain_wuxing = WuXing().current_node(name=self.data.wuxing.value).restrain().data
+    def destroy(self):
+        restrain_wuxing = WuXing().current_node(name=self.data.wuxing.value).destroy().data
         return self.__search_validate_wuxing(target_wuxing=restrain_wuxing)
 
     # 耗
