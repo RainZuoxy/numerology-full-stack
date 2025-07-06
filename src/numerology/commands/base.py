@@ -1,5 +1,3 @@
-from abc import ABC
-
 import click
 from pydantic import BaseModel
 
@@ -44,6 +42,5 @@ class BaseCommand(click.Command):
         return kwargs.get(cls.PARAM_FORMAT.name, False)
 
     @staticmethod
-    def to_json(value: BaseModel):
-        return value.model_dump_json()
-
+    def to_json(*, value: BaseModel, **kwargs):
+        return value.model_dump_json(**kwargs)

@@ -1,5 +1,4 @@
 from datetime import time
-from typing import Any
 from pydantic import BaseModel
 from numerology.const.wu_xing import ShiShenType
 from numerology.models.wu_xing import WuXing
@@ -12,19 +11,20 @@ class PillarElement(BaseModel):
     wu_xing: WuXing
     shi_shen: ShiShenType = None
 
-    def get_shi_shen(self, pillar) -> ShiShenType:
+    # def model_post_init(self, __context: Any) -> None:
+    #     if self.wu_xing.base.positive is None:
+    #         self.wu_xing.base.positive = self.positive
+
+    def get_shi_shen(self, day_master: "PillarElement") -> ShiShenType:
         if not self.shi_shen:
-            relationship = self.wu_xing.get_relationship(pillar.wu_xing)
-            same = 1 if self.positive == pillar.positive else 0
-            self.shi_shen = ShiShenType.get_relationship(relationship_type=relationship, same=same)
+            relationship = self.wu_xing.get_relationship(day_master.wu_xing)
+            is_same = not (self.positive ^ day_master.positive)
+            self.shi_shen = ShiShenType.get_relationship(relationship_type=relationship, is_same=is_same)
 
         return self.shi_shen
 
-    # def __dict__(self):
-    #     return dict(
-    #         name=self.name, positive=self.positive, wu_xing=self.wu_xing.get_name(),
-    #         shi_shen=self.shi_shen.value if self.shi_shen else ''
-    #     )
+    def set_wu_xing_positive(self, positive: bool):
+        self.wu_xing.base.positive = positive
 
     def get_wu_xing_dict(self):
         return dict(name=self.wu_xing.get_name(), positive=self.positive)

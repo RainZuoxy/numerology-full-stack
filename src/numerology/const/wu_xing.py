@@ -1,6 +1,4 @@
-from enum import Enum
-from typing import Union, Any
-from dataclasses import dataclass
+from enum import Enum, IntEnum
 
 JIA_ZI = [
     "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉", "甲戌", "乙亥",
@@ -12,11 +10,24 @@ JIA_ZI = [
 
 
 class WuXingRelationshipType(Enum):
-    SUPPORT = 0
-    WEAKEN = 1
-    CONSUME = 2
-    DESTROY = 3
-    PRODUCE = 4
+    """
+    五行关系
+    A 生 B: A -> B
+    Example:
+    水      木    火   土    金
+    base -> a -> b -> c -> d
+    0: base is supported by base
+    1: base is weakened by a
+    2: base is consumed by b
+    3: base is destroyed by c
+    4: base is produced by d
+
+    """
+    SUPPORTED = 0
+    WEAKENED = 1
+    CONSUMED = 2
+    DESTROYED = 3
+    PRODUCED = 4
 
     @property
     def text(self) -> str:
@@ -77,23 +88,36 @@ class ShiShenType(str, Enum):
     @classmethod
     def get_relationships(cls):
         return {
-            WuXingRelationshipType.PRODUCE: {0: cls.ZHENG_YIN, 1: cls.XIAO_SHEN},
-            WuXingRelationshipType.DESTROY: {0: cls.ZHENG_GUAN, 1: cls.QI_SHA},
-            WuXingRelationshipType.CONSUME: {0: cls.ZHENG_CAI, 1: cls.PIAN_CAI},
-            WuXingRelationshipType.SUPPORT: {0: cls.JIE_CAI, 1: cls.BI_JIAN},
-            WuXingRelationshipType.WEAKEN: {0: cls.SHANG_GUAN, 1: cls.SHI_SHEN}
+            WuXingRelationshipType.PRODUCED: {False: cls.ZHENG_YIN, True: cls.XIAO_SHEN},
+            WuXingRelationshipType.DESTROYED: {False: cls.ZHENG_GUAN, True: cls.QI_SHA},
+            WuXingRelationshipType.CONSUMED: {False: cls.ZHENG_CAI, True: cls.PIAN_CAI},
+            WuXingRelationshipType.SUPPORTED: {False: cls.JIE_CAI, True: cls.BI_JIAN},
+            WuXingRelationshipType.WEAKENED: {False: cls.SHANG_GUAN, True: cls.SHI_SHEN}
         }
 
     @classmethod
-    def get_relationship(cls, relationship_type: WuXingRelationshipType, same: int):
+    def get_relationship(cls, relationship_type: WuXingRelationshipType, is_same: bool):
         relationships = cls.get_relationships()
 
         if relationship_type not in relationships:
-            return ''
+            raise ValueError(f'{relationship_type}不是五行关系类型')
 
-        return relationships.get(relationship_type)[same]
+        if not isinstance(is_same, bool):
+            raise TypeError('is_same不是bool类型')
+
+        return relationships.get(relationship_type)[is_same]
 
 
-class Gender(Enum):
-    MALE = True
-    FEMALE = False
+class Gender(IntEnum):
+    MALE = 1
+    FEMALE = 0
+
+    @classmethod
+    def get_gender_in_cn(cls, value: int) -> str:
+        match value:
+            case cls.MALE.value:
+                return '男'
+            case cls.FEMALE.value:
+                return '女'
+            case _:
+                return 'invalid gender'
