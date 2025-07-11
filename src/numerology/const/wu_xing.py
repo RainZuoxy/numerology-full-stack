@@ -9,103 +9,17 @@ JIA_ZI = [
 ]
 
 
-class WuXingRelationshipType(Enum):
-    """
-    五行关系
-    A 生 B: A -> B
-    Example:
-    水      木    火   土    金
-    base -> a -> b -> c -> d
-    0: base is supported by base
-    1: base is weakened by a
-    2: base is consumed by b
-    3: base is destroyed by c
-    4: base is produced by d
-
-    """
-    SUPPORTED = 0
-    WEAKENED = 1
-    CONSUMED = 2
-    DESTROYED = 3
-    PRODUCED = 4
-
-    @property
-    def text(self) -> str:
-        relationship_names = {0: '助', 1: '泄', 2: '耗', 3: '克', 4: '生'}
-        return relationship_names.get(self.value)
+class WuXingType(Enum):
+    METAL = '金'
+    WOOD = '木'
+    WATER = '水'
+    FIRE = '火'
+    EARTH = '土'
 
 
-class TianGanType(str, Enum):
-    JIA = '甲'
-    YI = '乙'
-    BING = '丙'
-    DING = '丁'
-    WU = '戊'
-    JI = '己'
-    GENG = '庚'
-    XIN = '辛'
-    REN = '壬'
-    GUI = '癸'
-
-    @classmethod
-    def get_list(cls):
-        return [cls.JIA, cls.YI, cls.BING, cls.DING, cls.WU, cls.JI, cls.GENG, cls.XIN, cls.REN, cls.GUI]
-
-
-class DiZhiType(str, Enum):
-    ZI = '子'
-    CHOU = '丑'
-    YIN = '寅'
-    MAO = '卯'
-    CHEN = '辰'
-    SI = '巳'
-    WU = '午'
-    WEI = '未'
-    SHEN = '申'
-    YOU = '酉'
-    XU = '戌'
-    HAI = '亥'
-
-    @classmethod
-    def get_list(cls):
-        return [
-            cls.ZI, cls.CHOU, cls.YIN, cls.MAO, cls.CHEN, cls.SI, cls.WU, cls.WEI, cls.SHEN, cls.YOU, cls.XU, cls.HAI
-        ]
-
-
-class ShiShenType(str, Enum):
-    ZHENG_YIN = '正印'
-    XIAO_SHEN = '枭神'
-    BI_JIAN = '比肩'
-    JIE_CAI = '劫财'
-    SHI_SHEN = '食神'
-    SHANG_GUAN = '伤官'
-    ZHENG_CAI = '正财'
-    PIAN_CAI = '偏财'
-    ZHENG_GUAN = '正官'
-    QI_SHA = '七杀'
-
-    @classmethod
-    def get_relationships(cls):
-        return {
-            WuXingRelationshipType.PRODUCED: {False: cls.ZHENG_YIN, True: cls.XIAO_SHEN},
-            WuXingRelationshipType.DESTROYED: {False: cls.ZHENG_GUAN, True: cls.QI_SHA},
-            WuXingRelationshipType.CONSUMED: {False: cls.ZHENG_CAI, True: cls.PIAN_CAI},
-            WuXingRelationshipType.SUPPORTED: {False: cls.JIE_CAI, True: cls.BI_JIAN},
-            WuXingRelationshipType.WEAKENED: {False: cls.SHANG_GUAN, True: cls.SHI_SHEN}
-        }
-
-    @classmethod
-    def get_relationship(cls, relationship_type: WuXingRelationshipType, is_same: bool):
-        relationships = cls.get_relationships()
-
-        if relationship_type not in relationships:
-            raise ValueError(f'{relationship_type}不是五行关系类型')
-
-        if not isinstance(is_same, bool):
-            raise TypeError('is_same不是bool类型')
-
-        return relationships.get(relationship_type)[is_same]
+class YinYang(Enum):
+    YIN = "阴"
+    YANG = "阳"
 
 
 class Gender(IntEnum):
