@@ -1,3 +1,5 @@
+from enum import Enum
+
 NA_YIN_LIST = [
     '海中金', '炉中火', '大林木',
     '路旁土', '剑锋金', '山头火',
@@ -43,3 +45,61 @@ JIA_ZI_NA_YIN = {
     "庚申": "石榴木", "辛酉": "石榴木",
     "壬戌": "大海水", "癸亥": "大海水",
 }
+
+
+class NaYinType(Enum):
+    """
+
+    """
+    # 金
+    HAI_ZHONG_JIN = '海中金'
+    SHA_ZHONG_JIN = '沙中金'
+    BAI_LA_JIN = '白腊金'
+    CHAI_CHUAN_JIN = '钗钏金'
+    JIN_BO_JIN = '金箔金'
+    JIAN_FENG_JIN = '剑锋金'
+
+    #火
+    SHAN_TOU_HUO = '山头火'
+    LU_ZHONG_HUO = '炉中火'
+    PI_LI_HUO = '霹雳火'
+    FO_DENG_HUO = '佛灯火'
+    TIAN_SHANG_HUO = '天上火'
+    SHAN_XIA_HUO = '山下火'
+
+    #木
+    DA_LIN_MU = '大林木'
+    YANG_LIU_MU = '杨柳木'
+    PING_DI_MU = '平地木'
+    SONG_BAI_MU = '松柏木'
+    SANG_SONG_MU = '桑松木'
+    SHI_LIU_MU = '石榴木'
+
+    #水
+    JIAN_XIA_SHUI = '涧下水'
+    QUAN_ZHONG_SHUI = '泉中水'
+    TIAN_HE_SHUI = '天河水'
+    DA_XI_SHUI = '大溪水'
+    DA_HAI_SHUI = '大海水'
+    CHANG_LIU_SHUI = '常流水'
+
+    #土
+    LU_PANG_TU = '路旁土'
+    CHENG_QIANG_TU = '城墙土'
+    WU_SHANG_TU = '屋上土'
+    BI_SHANG_TU = '壁上土'
+    DA_YI_TU = '大驿土'
+    SHA_ZHONG_TU = '沙中土'
+
+
+
+
+
+
+
+
+
+
+
+
+
