@@ -26,3 +26,16 @@ def validate_int_range(
         return wrapper
 
     return decorator
+
+
+def convert_index(index: int, divisor: int) -> int:
+    index = index % divisor
+    return divisor if index == 0 else index
+
+
+def convert_tian_gan_index(index: int) -> int:
+    return convert_index(index=index, divisor=10)
+
+
+def convert_di_zhi_index(index: int) -> int:
+    return convert_index(index=index, divisor=12)
