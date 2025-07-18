@@ -1,42 +1,41 @@
 from typing import List, Dict
-from numerology.const.tian_gan import TianGanType
-from numerology.models.pillar import BaseStem
+from numerology.const import TianGanType
 from numerology.const.wu_xing import WuXingType, YinYang
-from numerology.models.base import NumerologyBaseMeta
+from numerology.models.base import NumerologyBaseMeta, BaseStem
 from numerology.utils.validator import validate_int_range
 
 
 class TianGan(metaclass=NumerologyBaseMeta):
 
     JIA = BaseStem(
-        element=TianGanType.JIA.value, yin_yang=YinYang.YANG, sequence=1, wu_xing=WuXingType.WOOD
+        element=TianGanType.JIA, yin_yang=YinYang.YANG, sequence=1, wu_xing=WuXingType.WOOD
     )
     YI = BaseStem(
-        element=TianGanType.YI.value, yin_yang=YinYang.YIN, sequence=2, wu_xing=WuXingType.WOOD
+        element=TianGanType.YI, yin_yang=YinYang.YIN, sequence=2, wu_xing=WuXingType.WOOD
     )
     BING = BaseStem(
-        element=TianGanType.BING.value, yin_yang=YinYang.YANG, sequence=3, wu_xing=WuXingType.FIRE
+        element=TianGanType.BING, yin_yang=YinYang.YANG, sequence=3, wu_xing=WuXingType.FIRE
     )
     DING = BaseStem(
-        element=TianGanType.DING.value, yin_yang=YinYang.YIN, sequence=4, wu_xing=WuXingType.FIRE
+        element=TianGanType.DING, yin_yang=YinYang.YIN, sequence=4, wu_xing=WuXingType.FIRE
     )
     WU = BaseStem(
-        element=TianGanType.WU.value, yin_yang=YinYang.YANG, sequence=5, wu_xing=WuXingType.EARTH
+        element=TianGanType.WU, yin_yang=YinYang.YANG, sequence=5, wu_xing=WuXingType.EARTH
     )
     JI = BaseStem(
-        element=TianGanType.JI.value, yin_yang=YinYang.YIN, sequence=6, wu_xing=WuXingType.EARTH
+        element=TianGanType.JI, yin_yang=YinYang.YIN, sequence=6, wu_xing=WuXingType.EARTH
     )
     GENG = BaseStem(
-        element=TianGanType.GENG.value, yin_yang=YinYang.YANG, sequence=7, wu_xing=WuXingType.METAL
+        element=TianGanType.GENG, yin_yang=YinYang.YANG, sequence=7, wu_xing=WuXingType.METAL
     )
     XIN = BaseStem(
-        element=TianGanType.XIN.value, yin_yang=YinYang.YIN, sequence=8, wu_xing=WuXingType.METAL
+        element=TianGanType.XIN, yin_yang=YinYang.YIN, sequence=8, wu_xing=WuXingType.METAL
     )
     REN = BaseStem(
-        element=TianGanType.REN.value, yin_yang=YinYang.YANG, sequence=9, wu_xing=WuXingType.WATER
+        element=TianGanType.REN, yin_yang=YinYang.YANG, sequence=9, wu_xing=WuXingType.WATER
     )
     GUI = BaseStem(
-        element=TianGanType.GUI.value, yin_yang=YinYang.YIN, sequence=10, wu_xing=WuXingType.WATER
+        element=TianGanType.GUI, yin_yang=YinYang.YIN, sequence=10, wu_xing=WuXingType.WATER
     )
 
     _mapping = {

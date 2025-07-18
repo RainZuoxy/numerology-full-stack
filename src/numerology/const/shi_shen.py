@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ShiShenType(str, Enum):
+class ShiShenType(Enum):
     ZHENG_YIN = '正印'
     XIAO_SHEN = '枭神'
     BI_JIAN = '比肩'

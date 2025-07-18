@@ -1,10 +1,8 @@
 from datetime import time
-from enum import StrEnum
-
-from numerology.utils.validator import validate_int_range
+from enum import Enum
 
 
-class DiZhiType(StrEnum):
+class DiZhiType(Enum):
     ZI = '子'
     CHOU = '丑'
     YIN = '寅'
@@ -42,6 +40,30 @@ class DiZhiType(StrEnum):
             (time(19, 0, 0), time(20, 59, 59)): cls.XU,
             (time(21, 0, 0), time(22, 59, 59)): cls.HAI,
         }
+
+    @classmethod
+    def get_month_range_list(cls):
+        return {
+            12: cls.ZI,
+            1: cls.CHOU,
+            2: cls.YIN,
+            3: cls.MAO,
+            4: cls.CHEN,
+            5: cls.SI,
+            6: cls.WU,
+            7: cls.WEI,
+            8: cls.SHEN,
+            9: cls.YOU,
+            10: cls.XU,
+            11: cls.HAI,
+        }
+
+    @classmethod
+    def get_di_zhi_by_month(cls, m:int) -> "DiZhiType":
+        try:
+            return cls.get_month_range_list()[m]
+        except KeyError:
+            raise KeyError(f"无法查找月份为:{m}对应的地支")
 
     @classmethod
     def get_di_zhi_by_hour(cls, t: time) -> "DiZhiType":

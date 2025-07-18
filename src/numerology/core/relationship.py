@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Union, Dict
-
 from numerology.const.relationship import WuXingRelationshipType
-from numerology.const.shishen import ShiShenType
-from numerology.const.wu_xing import WuXingType
+from numerology.const import WuXingType, ShiShenType
+from numerology.models.base import BaseStem
 
 _T = TypeVar('_T', WuXingType, ShiShenType)
 
@@ -25,9 +24,12 @@ class Relationship(ABC):
     def get_result_by_relationship(cls, relationship_type: WuXingRelationshipType, **kwargs) -> _T:
         raise NotImplementedError
 
+    @staticmethod
+    def is_same_yinyang(first: BaseStem, second: BaseStem) -> bool:
+        return True if first.yin_yang == second.yin_yang else False
+
 
 class WuXingRelationship(Relationship):
-
     """
     The Base Rule of WuXing
     """
@@ -73,7 +75,12 @@ class WuXingRelationship(Relationship):
         }
 
     @classmethod
-    def get_result_by_relationship(cls, *, relationship_type: WuXingRelationshipType, wuxing: WuXingType) -> WuXingType:  # noqa
+    def get_result_by_relationship(  # noqa
+            cls,
+            *,
+            relationship_type: WuXingRelationshipType,
+            wuxing: WuXingType
+    ) -> WuXingType:
         relationships = cls.get_relationships()
 
         if not isinstance(relationship_type, WuXingRelationshipType):
@@ -93,7 +100,6 @@ class WuXingRelationship(Relationship):
 
 
 class ShiShenRelationship(Relationship):
-
     """
     The Base Rule of ShiShen
     """
@@ -109,7 +115,12 @@ class ShiShenRelationship(Relationship):
         }
 
     @classmethod
-    def get_result_by_relationship(cls, *, relationship_type: WuXingRelationshipType, is_yinyang: bool) -> ShiShenType:  # noqa
+    def get_result_by_relationship(  # noqa
+            cls,
+            *,
+            relationship_type: WuXingRelationshipType,
+            is_yinyang: bool
+    ) -> ShiShenType:
         relationships = cls.get_relationships()
 
         if relationship_type not in relationships:

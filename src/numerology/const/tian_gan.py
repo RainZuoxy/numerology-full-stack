@@ -1,9 +1,8 @@
-from enum import StrEnum
-
+from enum import Enum
 from numerology.utils.validator import validate_int_range
 
 
-class TianGanType(StrEnum):
+class TianGanType(Enum):
     JIA = '甲'
     YI = '乙'
     BING = '丙'

@@ -1,13 +1,13 @@
 from typing import List, Dict
 from datetime import time
-from numerology.const.di_zhi import DiZhiType
+from numerology.const import DiZhiType
 from numerology.const.wu_xing import WuXingType, YinYang
-from numerology.models.pillar import BaseStem
-from numerology.models.base import NumerologyBaseMeta
+from numerology.models.base import NumerologyBaseMeta, BaseStem
 from numerology.utils.validator import validate_int_range
 
 
 class DiZhi(metaclass=NumerologyBaseMeta):
+
     ZI = BaseStem(
         element=DiZhiType.ZI, yin_yang=YinYang.YANG, sequence=1,
         wu_xing=WuXingType.WATER
@@ -89,4 +89,4 @@ class DiZhi(metaclass=NumerologyBaseMeta):
             if start_time <= t < end_time:
                 return self.mapping[dizhi]
 
-        raise ValueError(f'无法查找{time}时辰的地支')
+        raise ValueError(f'Can not find:{time} in DiZhiType time range list')
