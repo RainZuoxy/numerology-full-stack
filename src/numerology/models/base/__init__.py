@@ -1,29 +1,33 @@
-from typing import Union
+from typing import Union, Tuple
 from functools import partial
 from pydantic import BaseModel, ConfigDict, Field
-from numerology.const import TianGanType, DiZhiType, YinYang, WuXingType, NaYinType
+from numerology.const import TianGanType, DiZhiType, YinYang, WuXingType, NaYinType, ShiShenType
 
 Field = partial(Field, froze=True)
+CG_TYPE = Union[TianGanType, ShiShenType]
 
 
 class BaseStem(BaseModel):
-    element: Union[TianGanType, DiZhiType] = Field()
+    type: Union[TianGanType, DiZhiType] = Field()
     yin_yang: YinYang = Field()
     sequence: int = Field()
-    wu_xing: WuXingType = Field()
+    element: WuXingType = Field()
 
     model_config = ConfigDict(use_enum_values=False)
 
 
 class BaseCangGan(BaseModel):
     di_zhi: DiZhiType = Field()
-    zhu_qi: TianGanType = Field()
-    zhong_qi: TianGanType = Field(default=None)
-    yu_qi: TianGanType = Field(default=None)
+    zhu_qi: CG_TYPE = Field()
+    zhong_qi: CG_TYPE = Field(default=None)
+    yu_qi: CG_TYPE = Field(default=None)
+
+    def get_qis(self) -> Tuple[CG_TYPE, ...]:
+        return (self.zhu_qi, self.zhong_qi, self.yu_qi,)
 
     def weight(self):
         # todo
-        weight_map={...:0.70,...:0.25,...:0.05}
+        weight_map = {...: 0.70, ...: 0.25, ...: 0.05}
         return
 
 

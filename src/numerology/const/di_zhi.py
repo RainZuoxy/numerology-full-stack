@@ -17,7 +17,7 @@ class DiZhiType(Enum):
     HAI = '亥'
 
     @classmethod
-    def get_list(cls):
+    def get_all(cls):
         return [
             cls.ZI, cls.CHOU, cls.YIN, cls.MAO, cls.CHEN, cls.SI,
             cls.WU, cls.WEI, cls.SHEN, cls.YOU, cls.XU, cls.HAI
@@ -44,31 +44,39 @@ class DiZhiType(Enum):
     @classmethod
     def get_month_range_list(cls):
         return {
-            12: cls.ZI,
-            1: cls.CHOU,
-            2: cls.YIN,
-            3: cls.MAO,
-            4: cls.CHEN,
-            5: cls.SI,
-            6: cls.WU,
-            7: cls.WEI,
-            8: cls.SHEN,
-            9: cls.YOU,
-            10: cls.XU,
-            11: cls.HAI,
+            cls.ZI: 12,
+            cls.CHOU: 1,
+            cls.YIN: 2,
+            cls.MAO: 3,
+            cls.CHEN: 4,
+            cls.SI: 5,
+            cls.WU: 6,
+            cls.WEI: 7,
+            cls.SHEN: 8,
+            cls.YOU: 9,
+            cls.XU: 10,
+            cls.HAI: 11,
         }
 
-    @classmethod
-    def get_di_zhi_by_month(cls, m:int) -> "DiZhiType":
-        try:
-            return cls.get_month_range_list()[m]
-        except KeyError:
-            raise KeyError(f"无法查找月份为:{m}对应的地支")
+    def get_month(self):
+        return self.get_month_range_list()[self]
 
     @classmethod
-    def get_di_zhi_by_hour(cls, t: time) -> "DiZhiType":
-        for (start_time, end_time,), dizhi in cls.get_time_range_list().items():
-            if start_time <= t < end_time:
-                return dizhi
+    def get_chinese_zodiacs(cls):
+        return {
+            cls.ZI: "鼠",
+            cls.CHOU: "牛",
+            cls.YIN: "虎",
+            cls.MAO: "兔",
+            cls.CHEN: "龙",
+            cls.SI: "蛇",
+            cls.WU: "马",
+            cls.WEI: "羊",
+            cls.SHEN: "猴",
+            cls.YOU: "鸡",
+            cls.XU: "狗",
+            cls.HAI: "猪",
+        }
 
-        raise ValueError(f'无法查找{time}时辰的地支')
+    def get_chinese_zodiac(self):
+        return self.get_chinese_zodiacs()[self]

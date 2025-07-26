@@ -17,8 +17,3 @@ class TianGanType(Enum):
     @classmethod
     def get_list(cls):
         return [cls.JIA, cls.YI, cls.BING, cls.DING, cls.WU, cls.JI, cls.GENG, cls.XIN, cls.REN, cls.GUI]
-
-    @classmethod
-    @validate_int_range(param="index", min_value=0, max_value=9)
-    def get_di_zhi_by_index(cls, index: int) -> "TianGanType":
-        return cls.get_list()[index]

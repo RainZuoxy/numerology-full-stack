@@ -1,9 +1,10 @@
+from enum import Enum
+
 from numerology.const import DiZhiType, TianGanType
-from numerology.models.base import NumerologyBaseMeta, BaseCangGan
+from numerology.models.base import NumerologyBaseMeta, BaseCangGan, BaseStem
 
 
-class CangGan(metaclass=NumerologyBaseMeta):
-
+class CangGan(Enum):
     # 木芽破土，地温回升，冻土残存
     YIN = BaseCangGan(
         di_zhi=DiZhiType.YIN,
@@ -64,3 +65,7 @@ class CangGan(metaclass=NumerologyBaseMeta):
         di_zhi=DiZhiType.CHOU,
         zhu_qi=TianGanType.JI, zhong_qi=TianGanType.GUI, yu_qi=TianGanType.XIN
     )
+
+    @classmethod
+    def get_cang_gan(cls, di_zhi: DiZhiType):
+        return getattr(cls, di_zhi.name)
