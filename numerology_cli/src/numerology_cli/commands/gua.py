@@ -1,11 +1,7 @@
 from typing import Tuple
-
 import click
-
-from numerology.commands.base import EnumChoice, numerology_group, BaseCommand
+from numerology.commands.base import numerology_group, BaseCommand
 from numerology.const.gua import TrigramType, Trigram64Type
-from numerology.const.wu_xing import Gender
-from numerology.models.ming_pan import BaZi
 
 
 class QueryTrigramCommand(BaseCommand):

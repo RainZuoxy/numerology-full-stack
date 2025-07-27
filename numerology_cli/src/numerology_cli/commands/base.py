@@ -1,3 +1,5 @@
+from enum import Enum
+
 import click
 from pydantic import BaseModel
 
@@ -5,6 +7,11 @@ from pydantic import BaseModel
 @click.group(cls=click.Group, name='numerology', help='Numerology commands')
 def numerology_group(**kwargs):  # noqa
     pass
+
+
+class ShowType(Enum):
+    TABLE = 'table'
+    JSON = 'json'
 
 
 class EnumChoice(click.Choice):
@@ -28,9 +35,9 @@ class EnumChoice(click.Choice):
 class BaseCommand(click.Command):
     PARAM_FORMAT = click.Option(
         ('--format',),
-        default='table',
-        type=str,
-        help='打印结果'
+        default=ShowType.TABLE,
+        type=EnumChoice(enum=ShowType, use_value=True),
+        help='选择输出结果类型'
     )
 
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,21 @@
+[project]
+name = "numerology"
+version = "0.1.0"
+description = ""
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10.17"
+dependencies = [
+    "numerology",
+    "click"
+]
+
+[tool.uv.pip]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[tool.ruff]
+extend-select = ["C4","SIM","TCH"]
+ignore = []

@@ -2,7 +2,7 @@ import click
 
 from numerology.api import GenerateBaZiChartMixin
 from numerology.commands.base import EnumChoice, numerology_group, BaseCommand
-from numerology.const.wu_xing import Gender
+from numerology.const.gender import Gender
 
 
 class GenerateBaZiChartCommand(BaseCommand, GenerateBaZiChartMixin):
@@ -78,8 +78,8 @@ class GenerateBaZiChartCommand(BaseCommand, GenerateBaZiChartMixin):
             dayun.append(
                 f"{tian_gan.name}{di_zhi.name}"
                 f"|{tian_gan.shi_shen.value}-{di_zhi.shi_shen.value}"
-                f"|{tian_gan.wu_xing.base.name}"
-                f"{di_zhi.wu_xing.base.name}"
+                f"|{tian_gan.element.base.name}"
+                f"{di_zhi.element.base.name}"
             )
         print('\n八字排盘结果如下:')
         print('求人算名: ', results['name'])
