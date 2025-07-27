@@ -25,8 +25,8 @@ class Relationship(ABC):
         raise NotImplementedError
 
     @staticmethod
-    def is_same_yinyang(first: BaseStem, second: BaseStem) -> bool:
-        return True if first.yin_yang == second.yin_yang else False
+    def is_same_yin_yang(first: BaseStem, second: BaseStem) -> bool:
+        return first.yin_yang == second.yin_yang
 
 
 class WuXingRelationship(Relationship):
@@ -98,6 +98,10 @@ class WuXingRelationship(Relationship):
                 return relationship
         return None
 
+    @classmethod
+    def get_supported_and_produced(cls):
+        return [WuXingRelationshipType.PRODUCED, WuXingRelationshipType.SUPPORTED]
+
 
 class ShiShenRelationship(Relationship):
     """
@@ -119,17 +123,17 @@ class ShiShenRelationship(Relationship):
             cls,
             *,
             relationship_type: WuXingRelationshipType,
-            is_yinyang: bool
+            is_yin_yang: bool
     ) -> ShiShenType:
         relationships = cls.get_relationships()
 
         if relationship_type not in relationships:
             raise ValueError(f'{relationship_type} is not WuXing relationship type')
 
-        if not isinstance(is_yinyang, bool):
+        if not isinstance(is_yin_yang, bool):
             raise TypeError('is_yinyang is not bool')
 
-        return relationships.get(relationship_type)[is_yinyang]
+        return relationships.get(relationship_type)[is_yin_yang]
 
     @classmethod
     def get_relationship(cls, base: ShiShenType, other: ShiShenType) -> Union[WuXingRelationshipType, None]:
@@ -139,14 +143,10 @@ class ShiShenRelationship(Relationship):
         return None
 
 
-if __name__ == '__main__':
-    a = WuXingRelationship.get_result_by_relationship(
-        relationship_type=WuXingRelationshipType.PRODUCED,
-        wuxing=WuXingType.WATER
+def get_shi_shen(day_master: BaseStem, target: BaseStem) -> ShiShenType:
+    flag_for_yinyang = WuXingRelationship.is_same_yin_yang(first=day_master, second=target)
+    relationship = WuXingRelationship.get_relationship(base=day_master.element, other=target.element)
+    return ShiShenRelationship.get_result_by_relationship(
+        relationship_type=relationship, is_yin_yang=flag_for_yinyang
     )
-    print(a)
-    b = ShiShenRelationship.get_result_by_relationship(
-        relationship_type=WuXingRelationshipType.PRODUCED,
-        is_yinyang=True
-    )
-    print(b)
+

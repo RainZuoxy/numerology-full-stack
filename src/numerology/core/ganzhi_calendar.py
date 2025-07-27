@@ -275,6 +275,10 @@ class GanZhiCalendar(BaseModel):
                 else:
                     return calendar_edges.left_edge  # Left edge is closer
 
+    def get_days_until_nearest_solar_term(self, orient: Literal["forward", "backward"] = None) -> timedelta:
+        diff = abs(self.get_nearest_solar_term_info(orient=orient).dt - self.dob)
+        return diff
+
     def get_month_with_solar_term(self) -> SolarTermItem:
         calendar_edge = self.get_solar_term_edges_centered_on_dob(only_month_term=True)
         return calendar_edge.left_edge

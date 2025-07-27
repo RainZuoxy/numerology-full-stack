@@ -39,3 +39,7 @@ def convert_tian_gan_index(index: int) -> int:
 
 def convert_di_zhi_index(index: int) -> int:
     return convert_index(index=index, divisor=12)
+
+
+def check_gender_with_yinyang(gender: int, yinyang: str) -> bool:
+    return (gender == 1 and yinyang == "阳") or (gender == 0 and yinyang == "阴")
