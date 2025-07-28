@@ -3,12 +3,12 @@ from datetime import datetime
 from functools import partial
 from typing import Any, Union, Literal, List, Callable, Tuple, Dict
 
-from src.const import Gender
-from src.const.datetime_format import DateTimeFormat
-from src.core.chart import BaZiChartGenerateMixin, ShiShenGenerateMixin
-from src.core.ganzhi_calendar import GanZhiCalendar
-from src.models import MainInfoChart
-from src.models.chart import ShiShenChart, GanZhiChart
+from numerology.const import Gender
+from numerology.const.datetime_format import DateTimeFormat
+from numerology.core.chart import BaZiChartGenerateMixin, ShiShenGenerateMixin
+from numerology.core.ganzhi_calendar import GanZhiCalendar
+from numerology.models import MainInfoChart
+from numerology.models.chart import ShiShenChart, GanZhiChart
 
 
 class ChartTasks:
