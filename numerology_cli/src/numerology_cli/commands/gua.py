@@ -1,6 +1,6 @@
 from typing import Tuple
 import click
-from numerology.commands.base import numerology_group, BaseCommand
+from numerology_cli.commands.base import numerology_group, BaseCommand
 from numerology.const.gua import TrigramType, Trigram64Type
 
 

@@ -1,11 +1,10 @@
 import click
 
-from numerology.api import GenerateBaZiChartMixin
-from numerology.commands.base import EnumChoice, numerology_group, BaseCommand
+from numerology_cli.commands.base import EnumChoice, numerology_group, BaseCommand
 from numerology.const.gender import Gender
 
 
-class GenerateBaZiChartCommand(BaseCommand, GenerateBaZiChartMixin):
+class GenerateBaZiChartCommand(BaseCommand):
     PARAM_NAME = click.Option(
         ('--name',),
         prompt='求算人名',
