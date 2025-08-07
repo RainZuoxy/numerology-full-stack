@@ -15,6 +15,9 @@ class BaseStem(BaseModel):
 
     model_config = ConfigDict(use_enum_values=False)
 
+    def __str__(self):
+        return f"{self.type.value}({self.yin_yang.value}-{self.element.value})"
+
 
 class BaseCangGan(BaseModel):
     di_zhi: DiZhiType = Field()
