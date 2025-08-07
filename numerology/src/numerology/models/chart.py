@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import Any, Optional, Tuple
+from typing import Any, Optional, Tuple, List
 
-from pydantic import BaseModel, ConfigDict, model_validator, field_serializer
+from pydantic import BaseModel, Field, ConfigDict, model_validator, field_serializer
 from lunardate import LunarDate
 from numerology.const import Gender, ShiShenType
 from numerology.models.base import BaseStem
+from numerology.models.main_destiny import MainDestinyItem
 from numerology.utils.datetimes import (
     convert_solar_to_lunar_datetime, convert_lunar_to_solar_datetime,
     convert_to_datetime
@@ -49,6 +50,18 @@ class GanZhiChart(BaseModel):
     tg_hour: BaseStem
     dz_hour: BaseStem
 
+    def __str__(self):
+        def _format(v,width):
+            return f"{v: ^{width}}"
+        return f"""
+    {_format('',10)}|{_format('Tian Gan',10)}|{_format('Di Zhi',10)}
+    {'-' * 30}
+    {_format('Year',10)}|{_format(self.tg_year.type.value,10)}|{_format(self.dz_year.type.value,10)}
+    {_format('Month',10)}|{_format(self.tg_month.type.value,10)}|{_format(self.dz_month.type.value,10)}
+    {_format('Day',10)}|{_format(self.tg_day.type.value,10)}|{_format(self.dz_day.type.value,10)}
+    {_format('Hour',10)}|{_format(self.tg_hour.type.value,10)}|{_format(self.dz_hour.type.value,10)}
+        """
+
 
 class ShiShenChart(BaseModel):
     tg_year: ShiShenType
@@ -58,3 +71,24 @@ class ShiShenChart(BaseModel):
     dz_day: DZ_TYPE
     tg_hour: ShiShenType
     dz_hour: DZ_TYPE
+
+    def __str__(self):
+        def _format(v,width):
+            return f"{v: ^{width}}"
+        return f"""
+    {_format('',10)}|{_format('Tian Gan',11)}|{_format('Di Zhi',20)}
+    {'-' * 20+'主气,中气,余气'.center(20,'-')}
+    {_format('Year',10)}|{_format(self.tg_year.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_year]),13)}
+    {_format('Month',10)}|{_format(self.tg_month.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_month]),13)}
+    {_format('Day',10)}|{_format('(日主)',10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
+    {_format('Hour',10)}|{_format(self.tg_hour.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
+        """
+
+
+
+
+class MainDestinyChart(BaseModel):
+    num: int
+    items: List[MainDestinyItem] = Field(default_factory=list)
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
