@@ -10,4 +10,4 @@ wheels/
 .venv
 
 *.dist
-*.build
+*+build
