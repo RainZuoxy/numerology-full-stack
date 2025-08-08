@@ -3,12 +3,13 @@
 cls
 
 set PROJECT_NAME=numerology-cli
+set ICO_PATH=ico\app.ico
 set VERSION=0.1.0
 set ENTRYPOINT_FILE_NAME=__init__
 set ENTRYPOINT_FILE=numerology_cli\src\numerology_cli\entrypoint\%ENTRYPOINT_FILE_NAME%.py
 set PACKAGE_NAME=%PROJECT_NAME%-%VERSION%.tar
 set NUITKA_OUTPUT_DIR=dist
-set NUITKA_OPTIONS=--standalone --assume-yes-for-downloads --nofollow-import-to=pydantic.v1.* --output-filename=%PROJECT_NAME% --output-dir=%NUITKA_OUTPUT_DIR% %ENTRYPOINT_FILE%
+set NUITKA_OPTIONS=--standalone --assume-yes-for-downloads --windows-icon-from-ico=%ICO_PATH% --nofollow-import-to=pydantic.v1.* --output-filename=%PROJECT_NAME% --output-dir=%NUITKA_OUTPUT_DIR% %ENTRYPOINT_FILE%
 
 
 echo Check output dir...
