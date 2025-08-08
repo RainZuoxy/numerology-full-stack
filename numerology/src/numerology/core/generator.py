@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 from functools import partial
-from typing import Any, Union, Literal, List, Callable, Tuple, Dict
+from typing import Any, Union, List, Callable, Tuple, Dict
 
 from numerology.const import Gender
 from numerology.const.datetime_format import DateTimeFormat
@@ -85,6 +85,16 @@ class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
             dz_hour=self.gan_zhi_calendar.hour.di_zhi,
         )
 
+    def generate_main_destiny(self, flag:bool, num:int):
+        main_destiny = self.get_main_destiny(
+            month_pillar=self.gan_zhi_calendar.month,
+            flag_for_gender_and_chinese_zodiac=flag,
+            num=num
+        )
+        tmp = []
+        for (tg,dz,) in main_destiny:
+            tmp.append(f"{tg.type.value}{dz.type.value}")
+        return tmp
 
 class ChartConf:
     _chart_conf: dict[str, Any]

@@ -22,7 +22,3 @@ class CalendarEdgeResult(BaseModel):
 
     def is_exist(self) -> bool:
         return self.is_exist_left() and self.is_exist_right()
-
-    def get_month_with_solar_term(self) -> SolarTermItem:
-        calendar_edge = self.get_solar_term_edges_centered_on_dob(only_month_term=True)
-        return calendar_edge.left_edge
