@@ -1,0 +1,29 @@
+[project]
+name = "numerology-cli"
+version = "0.1.0"
+description = ""
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10.17"
+dependencies = [
+    "numerology==0.1.0",
+    "click==8.2.1",
+    "nuitka>=2.7.12"
+]
+
+[tool.uv.sources]
+numerology = { path = "../numerology"}
+
+[tool.uv.pip]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[tool.ruff]
+extend-select = ["C4","SIM","TCH"]
+ignore = []
+
+[build-system]
+requires = ["nuitka","setuptools"]
+#build-backend = "setuptools.build_meta"

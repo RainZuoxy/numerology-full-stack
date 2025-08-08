@@ -1,0 +1,26 @@
+[project]
+name = "numerology"
+version = "0.1.0"
+description = ""
+authors = [
+    {name="Michael_Zuo", email = "michael_zuoxy@foxmail.com"}
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10.17"
+dependencies = [
+    "lunardate>=0.2.2",
+    "ephem==4.1.6",
+    "loguru==0.7.3",
+    "pydantic==2.11.7"
+]
+
+[tool.uv.pip]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
