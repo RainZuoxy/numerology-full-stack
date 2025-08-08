@@ -2,11 +2,17 @@ from enum import Enum
 
 import click
 from pydantic import BaseModel
+from numerology import __version__ as lib_version
+from numerology_cli import __version__ as cli_version
 
 
-@click.group(cls=click.Group, name='numerology', help='Numerology commands')
-def numerology_group(**kwargs):  # noqa
-    pass
+def show_version():
+    v = {
+        "numerology": lib_version,
+        "numerology-cli": cli_version
+    }
+
+    return '\n'.join([f"{_p}: v{_v}" for _p, _v in v.items()])
 
 
 class ShowType(Enum):
@@ -51,3 +57,9 @@ class BaseCommand(click.Command):
     @staticmethod
     def to_json(*, value: BaseModel, **kwargs):
         return value.model_dump_json(**kwargs)
+
+
+@click.group(cls=click.Group, name='numerology', help='Numerology commands')
+@click.version_option(show_version(), *('--version', '-v',), message='Version:\n%(version)s')
+def numerology_group(**kwargs):  # noqa
+    pass
