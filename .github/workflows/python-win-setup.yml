@@ -35,9 +35,7 @@ jobs:
     - run: uv sync
       working-directory: numerology_cli
       
-    - run: |
-        set PYTHONUTF8=1
-        uv run powershell scripts/windows/numerology-cli-setup.bat
+    - run: uv run powershell scripts/windows/numerology-cli-setup.bat
       if: matrix.os == 'windows-latest'
       env:
         VIRTUAL_ENV: numerology_cli/.venv
