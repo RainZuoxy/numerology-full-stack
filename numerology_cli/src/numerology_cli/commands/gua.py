@@ -18,6 +18,7 @@ class QueryTrigramCommand(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.help = "According to Yao's trigram series, query the trigram"
         self.params = self.params + [self.PARAM_TRIGRAM_SERIES]
 
     def get_trigram_series(self, **kwargs) -> str:
@@ -48,8 +49,9 @@ class QueryTrigramCommand(BaseCommand):
             f"Up Trigram：{item.up_trigram.value.icon}-{item.up_trigram.value.name}-{up_symbol}".encode(encoding='utf-8')
         )
         click.echo(
-            f"Down Trigram：{item.down_trigram.value.icon}-{item.down_trigram.value.name}-{down_symbol}".encode(encoding='utf-8')
-                   )
+            f"Down Trigram：{item.down_trigram.value.icon}-{item.down_trigram.value.name}-{down_symbol}".encode(
+                encoding='utf-8')
+        )
 
     def to_json(self, results):
         tmp = {
@@ -57,6 +59,7 @@ class QueryTrigramCommand(BaseCommand):
             "value": results.value.model_dump(mode='json'),
         }
         return json.dumps(tmp, ensure_ascii=False)
+
 
 @numerology_group.command(cls=QueryTrigramCommand)
 def query_trigram(**kwargs):
