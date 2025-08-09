@@ -43,7 +43,7 @@ class BaseCommand(click.Command):
         ('--format',),
         default=ShowType.TABLE,
         type=EnumChoice(enum=ShowType, use_value=True),
-        help='选择输出结果类型'
+        help='Please select format. (table/json)',
     )
 
     def __init__(self, *args, **kwargs):

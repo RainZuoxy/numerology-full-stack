@@ -9,22 +9,22 @@ from numerology.core.generator import ChartConf
 class GenerateBaZiChartCommand(BaseCommand):
     PARAM_NAME = click.Option(
         ('--name',),
-        prompt='求算人名',
+        prompt='Please enter your name',
         help='The person who want to greet.'
     )
 
     PARAM_DOB_TIME = click.Option(
         ('--dob-time',),
         required=True,
-        prompt='求算日期',
-        help='生辰八字 (YYYY-MM-DD HH:MM:SS)'
+        prompt='Please enter your date of birth',
+        help='The format of date of birth. (YYYY-MM-DD HH:MM:SS)'
     )
 
     PARAM_GENDER = click.Option(
         ('--gender',),
         required=True,
-        prompt='性别',
-        help='求算人性别(男/女)',
+        prompt='Please select gender',
+        help='The gender of the person. (male/female)',
         type=EnumChoice(Gender, case_sensitive=False)
     )
 
@@ -33,13 +33,16 @@ class GenerateBaZiChartCommand(BaseCommand):
         required=False,
         default=7,
         type=int,
-        help='计算大运的次数'
+        help='The number of dayun. (default: 7)'
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__ba_zi = None
-        self.help = "根据阳历转换阴历，并生成八字、十神、大运等基本信息。"
+        self.help = (
+            "According to the solar calendar, it will be converted to the lunar calendar "
+            "and generate the basic information of the Ba Zi, Ten God, and Da yun."
+        )
         self.params = [
             self.PARAM_NAME, self.PARAM_DOB_TIME, self.PARAM_GENDER, self.PARAM_DAYUN_NUMBER, self.PARAM_FORMAT
         ]
