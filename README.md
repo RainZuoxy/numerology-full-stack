@@ -18,3 +18,7 @@
 ```
   query-trigram --trigram-series <64卦从初爻到上爻的顺序(0为阴,1为阳)> --format <table:表格格式, json:json格式>
 ```
+
+- **Todo:**
+  - [ ]  基于FastAPI的开发后端API
+  - [ ]  基于Vue3的开发前端Web
