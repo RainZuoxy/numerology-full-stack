@@ -1,12 +1,12 @@
 [project]
 name = "numerology-cli"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10.17"
 dependencies = [
-    "numerology==0.1.0",
+    "numerology==1.0.0",
     "click==8.2.1",
     "nuitka>=2.7.12"
 ]
