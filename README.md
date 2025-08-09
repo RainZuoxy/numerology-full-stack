@@ -13,5 +13,8 @@
     --format <table:表格格式, json:json格式>
 ```
 
-- **Todo: 生成八卦图:**
-  - [ ] query-trigram
+- **查询八卦图信息:**
+
+```
+  query-trigram --trigram-series <64卦从初爻到上爻的顺序(0为阴,1为阳)> --format <table:表格格式, json:json格式>
+```
