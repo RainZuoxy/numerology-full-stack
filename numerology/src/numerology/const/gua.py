@@ -1,5 +1,5 @@
-from abc import ABC, abstractmethod, ABCMeta
-from enum import Enum, EnumMeta
+from abc import abstractmethod
+from enum import Enum
 from typing import Tuple
 from pydantic import BaseModel
 
@@ -155,7 +155,7 @@ class BaseTrigram64Type(Enum):
         raise NotImplementedError("Need to define")
 
 
-class TheFirstVolume(Enum):
+class Trigram64Type(Enum):
     QIAN = Trigram64Item(
         name="乾卦", index=1, icon="䷀",
         up_trigram=TrigramType.QIAN, down_trigram=TrigramType.QIAN
@@ -172,31 +172,300 @@ class TheFirstVolume(Enum):
         name="蒙卦", index=4, icon="䷃",
         up_trigram=TrigramType.GEN, down_trigram=TrigramType.KAN
     )
+    XU = Trigram64Item(
+        name="需", index=5, icon="䷄",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.QIAN
+    )
+    SONG = Trigram64Item(
+        name="讼", index=6, icon="䷅",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.KAN
+    )
+    SHI = Trigram64Item(
+        name="师", index=7, icon="䷆",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.KAN
+    )
+    BI = Trigram64Item(
+        name="比", index=8, icon="䷇",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.KUN
+    )
+    XIAO_CHU = Trigram64Item(
+        name="小畜", index=9, icon="䷈",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.QIAN
+    )
+    LV = Trigram64Item(
+        name="履", index=10, icon="䷉",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.DUI
+    )
+    TAI = Trigram64Item(
+        name="泰", index=11, icon="䷊",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.QIAN
+    )
+    PI = Trigram64Item(
+        name="否", index=12, icon="䷋",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.KUN
+    )
+    TONG_REN = Trigram64Item(
+        name="同人", index=13, icon="䷌",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.LI
+    )
+    DA_YOU = Trigram64Item(
+        name="大有", index=14, icon="䷍",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.QIAN
+    )
+    QIAN1 = Trigram64Item(
+        name="谦", index=15, icon="䷎",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.GEN
+    )
+    YU = Trigram64Item(
+        name="豫", index=16, icon="䷏",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.KUN
+    )
+    SUI = Trigram64Item(
+        name="随", index=17, icon="䷐",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.ZHEN
+    )
+    GU = Trigram64Item(
+        name="蛊", index=18, icon="䷑",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.XUN
+    )
+    LIN = Trigram64Item(
+        name="临", index=19, icon="䷒",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.DUI
+    )
+    GUAN = Trigram64Item(
+        name="观", index=20, icon="䷓",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.KUN
+    )
+    SHI_HE = Trigram64Item(
+        name="噬嗑", index=21, icon="䷔",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.ZHEN
+    )
+    BI4 = Trigram64Item(
+        name="贲", index=22, icon="䷕",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.LI
+    )
+    BO = Trigram64Item(
+        name="剥", index=23, icon="䷖",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.KUN
+    )
+    FU = Trigram64Item(
+        name="复", index=24, icon="䷗",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.ZHEN
+    )
+
+    WU_WANG = Trigram64Item(
+        name="无妄", index=25, icon="䷘",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.ZHEN
+    )
+    DA_CHU = Trigram64Item(
+        name="大畜", index=26, icon="䷙",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.QIAN
+    )
+    YI = Trigram64Item(
+        name="颐", index=27, icon="䷚",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.ZHEN
+    )
+    DA_GUO = Trigram64Item(
+        name="大过", index=28, icon="䷛",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.XUN
+    )
+    KAN = Trigram64Item(
+        name="坎", index=29, icon="䷜",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.KAN
+    )
+    LI = Trigram64Item(
+        name="离", index=30, icon="䷝",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.LI
+    )
+    XIAN = Trigram64Item(
+        name="咸", index=31, icon="䷞",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.GEN
+    )
+    HENG = Trigram64Item(
+        name="恒", index=32, icon="䷟",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.XUN
+    )
+    DUN = Trigram64Item(
+        name="遁", index=33, icon="䷠",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.GEN
+    )
+    DA_ZHUANG = Trigram64Item(
+        name="大壮", index=34, icon="䷡",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.QIAN
+    )
+    JIN = Trigram64Item(
+        name="晋", index=35, icon="䷢",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.KUN
+    )
+    MING_YI = Trigram64Item(
+        name="明夷", index=36, icon="䷣",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.LI
+    )
+    JIA_REN = Trigram64Item(
+        name="家人", index=37, icon="䷤",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.LI
+    )
+    KUI = Trigram64Item(
+        name="睽", index=38, icon="䷥",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.DUI
+    )
+    JIAN = Trigram64Item(
+        name="蹇", index=39, icon="䷦",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.GEN
+    )
+    JIE = Trigram64Item(
+        name="解", index=40, icon="䷧",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.KAN
+    )
+    SUN = Trigram64Item(
+        name="损", index=41, icon="䷨",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.DUI
+    )
+    YI4 = Trigram64Item(
+        name="益", index=42, icon="䷩",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.ZHEN
+    )
+    GUAI = Trigram64Item(
+        name="夬", index=43, icon="䷪",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.QIAN
+    )
+    GOU = Trigram64Item(
+        name="姤", index=44, icon="䷫",
+        up_trigram=TrigramType.QIAN, down_trigram=TrigramType.XUN
+    )
+    CUI = Trigram64Item(
+        name="萃", index=45, icon="䷬",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.KUN
+    )
+    SHENG = Trigram64Item(
+        name="升", index=46, icon="䷭",
+        up_trigram=TrigramType.KUN, down_trigram=TrigramType.XUN
+    )
+    KUN4 = Trigram64Item(
+        name="困", index=47, icon="䷮",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.KAN
+    )
+    JING = Trigram64Item(
+        name="井", index=48, icon="䷯",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.XUN
+    )
+    GE = Trigram64Item(
+        name="革", index=49, icon="䷰",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.LI
+    )
+    DING = Trigram64Item(
+        name="鼎", index=50, icon="䷱",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.XUN
+    )
+    ZHEN = Trigram64Item(
+        name="震", index=51, icon="䷲",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.ZHEN
+    )
+    GEN = Trigram64Item(
+        name="艮", index=52, icon="䷳",
+        up_trigram=TrigramType.GEN, down_trigram=TrigramType.GEN
+    )
+    JIAN4 = Trigram64Item(
+        name="渐", index=53, icon="䷴",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.GEN
+    )
+    GUI_MEI = Trigram64Item(
+        name="归妹", index=54, icon="䷵",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.DUI
+    )
+    FENG = Trigram64Item(
+        name="丰", index=55, icon="䷶",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.LI
+    )
+    LV3 = Trigram64Item(
+        name="旅", index=56, icon="䷷",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.GEN
+    )
+    XUN = Trigram64Item(
+        name="巽", index=57, icon="䷸",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.XUN
+    )
+    DUI = Trigram64Item(
+        name="兑", index=58, icon="䷹",
+        up_trigram=TrigramType.DUI, down_trigram=TrigramType.DUI
+    )
+    HUAN = Trigram64Item(
+        name="涣", index=59, icon="䷺",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.KAN
+    )
+    JIE2 = Trigram64Item(
+        name="节", index=60, icon="䷻",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.DUI
+    )
+    ZHONG_FU = Trigram64Item(
+        name="中孚", index=61, icon="䷼",
+        up_trigram=TrigramType.XUN, down_trigram=TrigramType.DUI
+    )
+    XIAO_GUO = Trigram64Item(
+        name="小过", index=62, icon="䷽",
+        up_trigram=TrigramType.ZHEN, down_trigram=TrigramType.GEN
+    )
+    JI_JI = Trigram64Item(
+        name="既济", index=63, icon="䷾",
+        up_trigram=TrigramType.KAN, down_trigram=TrigramType.LI
+    )
+    WEI_JI = Trigram64Item(
+        name="未济", index=64, icon="䷿",
+        up_trigram=TrigramType.LI, down_trigram=TrigramType.KAN
+    )
+
+    @classmethod
+    def get_mapping(cls):
+        EIGHT_TRIGRAM_SYMBOL_QIAN = '天'
+        EIGHT_TRIGRAM_SYMBOL_KUN = '地'
+        EIGHT_TRIGRAM_SYMBOL_ZHEN = '雷'
+        EIGHT_TRIGRAM_SYMBOL_XUN = '风'
+        EIGHT_TRIGRAM_SYMBOL_KAN = '水'
+        EIGHT_TRIGRAM_SYMBOL_LI = '火'
+        EIGHT_TRIGRAM_SYMBOL_GEN = '山'
+        EIGHT_TRIGRAM_SYMBOL_DUI = '泽'
+        return {
+            TrigramType.QIAN:EIGHT_TRIGRAM_SYMBOL_QIAN,
+            TrigramType.KUN:EIGHT_TRIGRAM_SYMBOL_KUN,
+            TrigramType.ZHEN:EIGHT_TRIGRAM_SYMBOL_ZHEN,
+            TrigramType.XUN:EIGHT_TRIGRAM_SYMBOL_XUN,
+            TrigramType.KAN:EIGHT_TRIGRAM_SYMBOL_KAN,
+            TrigramType.LI:EIGHT_TRIGRAM_SYMBOL_LI,
+            TrigramType.GEN:EIGHT_TRIGRAM_SYMBOL_GEN,
+            TrigramType.DUI:EIGHT_TRIGRAM_SYMBOL_DUI
+        }
 
     @classmethod
     def get_trigram64(cls, up_trigram: TrigramType, down_trigram: TrigramType):
-        match (up_trigram, down_trigram,):
-            case (TrigramType.QIAN, TrigramType.QIAN, ):
-                return cls.QIAN
-            case (TrigramType.KUN, TrigramType.KUN, ):
-                return cls.KUN
-            case (TrigramType.KAN, TrigramType.ZHEN, ):
-                return cls.ZHUN
-            case (TrigramType.GEN, TrigramType.KAN, ):
-                return cls.MENG
-            case _:
-                return None
+        for item in cls:
+            name, val = item.name, item.value
+            if val.up_trigram == up_trigram and val.down_trigram == down_trigram:
+                return cls[name]
+
+    # @classmethod
+    # def get_trigram64(cls, up_trigram: TrigramType, down_trigram: TrigramType):
+    #     match (up_trigram, down_trigram,):
+    #         case (TrigramType.QIAN, TrigramType.QIAN, ):
+    #             return cls.QIAN
+    #         case (TrigramType.KUN, TrigramType.KUN, ):
+    #             return cls.KUN
+    #         case (TrigramType.KAN, TrigramType.ZHEN, ):
+    #             return cls.ZHUN
+    #         case (TrigramType.GEN, TrigramType.KAN, ):
+    #             return cls.MENG
+    #         case _:
+    #             return None
 
 
-class Trigram64Type(Enum):
-
-    @classmethod
-    def get_trigram64(cls, up_trigram: TrigramType, down_trigram: TrigramType):
-        for class_ in [TheFirstVolume]:
-            res = class_.get_trigram64(up_trigram=up_trigram, down_trigram=down_trigram)
-            if res:
-                return res.value
-        raise ValueError("No mapping validate trigram")
+# class Trigram64Type(Enum):
+#
+#     @classmethod
+#     def get_trigram64(cls, up_trigram: TrigramType, down_trigram: TrigramType):
+#         for class_ in [TheFirstVolume]:
+#             res = class_.get_trigram64(up_trigram=up_trigram, down_trigram=down_trigram)
+#             if res:
+#                 return res.value
+#         raise ValueError("No mapping validate trigram")
 
 # for name, member in TheFirstVolume.__members__.items():
 #     setattr(Trigram64Type, name, member)
