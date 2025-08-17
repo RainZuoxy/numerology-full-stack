@@ -9,6 +9,7 @@ from numerology.core.chart import BaZiChartGenerateMixin, ShiShenGenerateMixin
 from numerology.core.ganzhi_calendar import GanZhiCalendar
 from numerology.models import MainInfoChart
 from numerology.models.chart import ShiShenChart, GanZhiChart
+from numerology.models.pillar import PillarItem
 
 
 class ChartTasks:
@@ -92,8 +93,8 @@ class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
             num=num
         )
         tmp = []
-        for (tg,dz,) in main_destiny:
-            tmp.append(f"{tg.type.value}{dz.type.value}")
+        for index,(tg,dz,) in enumerate(main_destiny,start=1):
+            tmp.append(PillarItem(name=f"大运{(index-1)*10}-{index*10}",tian_gan=tg,di_zhi=dz))
         return tmp
 
 class ChartConf:

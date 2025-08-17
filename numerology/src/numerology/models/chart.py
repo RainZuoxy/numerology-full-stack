@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Optional, Tuple, List
 
-from pydantic import BaseModel, Field, ConfigDict, model_validator, field_serializer
+from pydantic import BaseModel, Field, ConfigDict, model_validator, PrivateAttr
 from lunardate import LunarDate
 from numerology.const import Gender, ShiShenType
 from numerology.models.base import BaseStem
@@ -14,9 +14,30 @@ from numerology.utils.datetimes import (
 DZ_TYPE = Tuple[ShiShenType, ShiShenType | None, ShiShenType | None]
 
 
+class LunarDob(BaseModel):
+    year: int = None
+    month: int = None
+    day: int = None
+    isleap: bool = None
+
+    _lunar_dob: LunarDate = PrivateAttr()
+
+    @model_validator(mode='before')
+    @classmethod
+    def check_lunar_dob(cls, values: Any):
+        lunar_dob: LunarDate = values.get('_lunar_dob')
+        if not lunar_dob:
+            raise ValueError("lunar_dob is required")
+        values['year'] = lunar_dob.year
+        values['month'] = lunar_dob.month
+        values['day'] = lunar_dob.day
+        values['isleap'] = lunar_dob.isLeapMonth
+        return values
+
+
 class MainInfoChart(BaseModel):
     dob: Optional[datetime] = None
-    lunar_dob: Optional[LunarDate] = None
+    lunar_dob: Optional[LunarDob] = None
     gender: Gender
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -30,14 +51,10 @@ class MainInfoChart(BaseModel):
             raise ValueError("dob or lunar_dob is required")
         if not _lunar_dob:
             _dob = convert_to_datetime(_dob) if isinstance(_dob, str) else _dob
-            values['lunar_dob'] = convert_solar_to_lunar_datetime(_dob)
+            values['lunar_dob'] = LunarDob(_lunar_dob=convert_solar_to_lunar_datetime(dt=_dob))  # noqa
         if not _dob:
-            values['dob'] = convert_lunar_to_solar_datetime(_lunar_dob)
+            values['dob'] = convert_lunar_to_solar_datetime(lunar_dt=_lunar_dob)
         return values
-
-    @field_serializer('lunar_dob')
-    def serialize_lunar_dob(self, lunar_dob: LunarDate):
-        return str(lunar_dob)
 
 
 class GanZhiChart(BaseModel):
@@ -51,15 +68,16 @@ class GanZhiChart(BaseModel):
     dz_hour: BaseStem
 
     def __str__(self):
-        def _format(v,width):
+        def _format(v, width):
             return f"{v: ^{width}}"
+
         return f"""
-    {_format('',10)}|{_format('Tian Gan',10)}|{_format('Di Zhi',10)}
+    {_format('', 10)}|{_format('Tian Gan', 10)}|{_format('Di Zhi', 10)}
     {'-' * 30}
-    {_format('Year',10)}|{_format(self.tg_year.type.value,10)}|{_format(self.dz_year.type.value,10)}
-    {_format('Month',10)}|{_format(self.tg_month.type.value,10)}|{_format(self.dz_month.type.value,10)}
-    {_format('Day',10)}|{_format(self.tg_day.type.value,10)}|{_format(self.dz_day.type.value,10)}
-    {_format('Hour',10)}|{_format(self.tg_hour.type.value,10)}|{_format(self.dz_hour.type.value,10)}
+    {_format('Year', 10)}|{_format(self.tg_year.type.value, 10)}|{_format(self.dz_year.type.value, 10)}
+    {_format('Month', 10)}|{_format(self.tg_month.type.value, 10)}|{_format(self.dz_month.type.value, 10)}
+    {_format('Day', 10)}|{_format(self.tg_day.type.value, 10)}|{_format(self.dz_day.type.value, 10)}
+    {_format('Hour', 10)}|{_format(self.tg_hour.type.value, 10)}|{_format(self.dz_hour.type.value, 10)}
         """
 
 
@@ -73,18 +91,17 @@ class ShiShenChart(BaseModel):
     dz_hour: DZ_TYPE
 
     def __str__(self):
-        def _format(v,width):
+        def _format(v, width):
             return f"{v: ^{width}}"
+
         return f"""
-    {_format('',10)}|{_format('Tian Gan',11)}|{_format('Di Zhi',20)}
-    {'-' * 20+'主气,中气,余气'.center(20,'-')}
-    {_format('Year',10)}|{_format(self.tg_year.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_year]),13)}
-    {_format('Month',10)}|{_format(self.tg_month.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_month]),13)}
-    {_format('Day',10)}|{_format('(日主)',10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
-    {_format('Hour',10)}|{_format(self.tg_hour.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
+    {_format('', 10)}|{_format('Tian Gan', 11)}|{_format('Di Zhi', 20)}
+    {'-' * 20 + '主气,中气,余气'.center(20, '-')}
+    {_format('Year', 10)}|{_format(self.tg_year.value, 10)}|{_format(','.join([i.value if i else '/' for i in self.dz_year]), 13)}
+    {_format('Month', 10)}|{_format(self.tg_month.value, 10)}|{_format(','.join([i.value if i else '/' for i in self.dz_month]), 13)}
+    {_format('Day', 10)}|{_format('(日主)', 10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]), 13)}
+    {_format('Hour', 10)}|{_format(self.tg_hour.value, 10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]), 13)}
         """
-
-
 
 
 class MainDestinyChart(BaseModel):
