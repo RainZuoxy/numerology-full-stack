@@ -78,8 +78,8 @@ class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
         return GanZhiChart(
             tg_year=self.gan_zhi_calendar.year.tian_gan,
             dz_year=self.gan_zhi_calendar.year.di_zhi,
-            tg_month=self.gan_zhi_calendar.year.tian_gan,
-            dz_month=self.gan_zhi_calendar.year.di_zhi,
+            tg_month=self.gan_zhi_calendar.month.tian_gan,
+            dz_month=self.gan_zhi_calendar.month.di_zhi,
             tg_day=self.gan_zhi_calendar.day.tian_gan,
             dz_day=self.gan_zhi_calendar.day.di_zhi,
             tg_hour=self.gan_zhi_calendar.hour.tian_gan,
