@@ -81,7 +81,7 @@ class ShiShenChart(BaseModel):
     {_format('Year',10)}|{_format(self.tg_year.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_year]),13)}
     {_format('Month',10)}|{_format(self.tg_month.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_month]),13)}
     {_format('Day',10)}|{_format('(日主)',10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
-    {_format('Hour',10)}|{_format(self.tg_hour.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_day]),13)}
+    {_format('Hour',10)}|{_format(self.tg_hour.value,10)}|{_format(','.join([i.value if i else '/' for i in self.dz_hour]),13)}
         """
 
 
