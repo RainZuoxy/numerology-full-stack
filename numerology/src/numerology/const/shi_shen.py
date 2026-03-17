@@ -30,3 +30,18 @@ class ShiShenType(Enum):
 
     def get_temperament(self) -> str:
         return self.get_temperaments()[self]
+
+    @classmethod
+    def get_symbolic_significance(cls):
+        return {
+            cls.ZHENG_YIN: ("学识", "保护", "长辈", "贵人", "", "", "",),
+            cls.XIAO_SHEN: ("偏门技能", "灵感", "孤独", "", "", "",),
+            cls.BI_JIAN: ("同辈助力", "竞争", "独立", "", "", "",),
+            cls.JIE_CAI: ("争夺", "破财", "冲动", "", "", "",),
+            cls.SHI_SHEN: ("才华", "享受", "口福", "艺术", "", "",),
+            cls.SHANG_GUAN: ("叛逆", "创新", "表达欲", "",),
+            cls.ZHENG_CAI: ("稳定收入", "节俭", "物质保障", "", "", "",),
+            cls.PIAN_CAI: ("意外之财", "投机", "慷慨", "", "", "",),
+            cls.ZHENG_GUAN: ("规则", "责任", "地位", "约束", "", "",),
+            cls.QI_SHA: ("竞争", "挑战", "野心", "压力", "", "",)
+        }

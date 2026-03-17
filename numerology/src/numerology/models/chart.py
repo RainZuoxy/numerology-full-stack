@@ -109,3 +109,14 @@ class MainDestinyChart(BaseModel):
     items: List[MainDestinyItem] = Field(default_factory=list)
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    def __str__(self):
+        def _format(v,width):
+            return f"{v: ^{width}}"
+        details = [(md.get_schedule(),str(md.origin_item),md.get_shi_shen()) for md in self.items]
+        details_str="\n    ".join([f"{_format(d[0],10)}|{_format(d[1],10)}|{_format(d[2],10)}" for d in details])
+        return f"""
+    {_format('Age Schedule',10)}|{_format('Gan Zhi',10)}|{_format('Shi Shen',10)}
+    {'-' * 30}
+    {details_str}
+        """

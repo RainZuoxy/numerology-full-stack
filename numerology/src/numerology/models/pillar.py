@@ -7,7 +7,8 @@ class PillarItem(BaseModel):
     tian_gan: BaseStem = None
     di_zhi: BaseStem = None
 
+    def __str__(self):
+        return f"{self.tian_gan.type.value}{self.di_zhi.type.value}"
+
     def __repr__(self):
         return f"{self.name}: {self.tian_gan} {self.di_zhi}"
-
-    __str__ = __repr__

@@ -8,7 +8,9 @@ from numerology.const.datetime_format import DateTimeFormat
 from numerology.core.chart import BaZiChartGenerateMixin, ShiShenGenerateMixin
 from numerology.core.ganzhi_calendar import GanZhiCalendar
 from numerology.models import MainInfoChart
-from numerology.models.chart import ShiShenChart, GanZhiChart
+from numerology.models.base import BaseStem
+from numerology.models.chart import ShiShenChart, GanZhiChart, MainDestinyChart
+from numerology.models.main_destiny import MainDestinyItem
 from numerology.models.pillar import PillarItem
 
 
@@ -37,6 +39,8 @@ class ChartTasks:
 class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
 
     def __init__(self, dob: datetime, gender: Gender):
+        self.main_chart = None
+        self.gan_zhi_calendar = None
         self.dob = dob
         self.gender = gender
 
@@ -44,6 +48,11 @@ class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
         self.gan_zhi_calendar = GanZhiCalendar(dob=self.dob)
         self.main_chart = MainInfoChart(dob=self.dob, gender=self.gender)
         return self
+
+    def _get_shi_shen(self, day_master: BaseStem, pillar: PillarItem):
+        get_shi_shen = partial(self.get_shi_shen, day_master=day_master)
+        get_shi_shen_by_cang_gan = partial(self.get_shi_shen_by_cang_gan, day_master=day_master)
+        return get_shi_shen(target=pillar.tian_gan), get_shi_shen_by_cang_gan(di_zhi=pillar.di_zhi.type)
 
     def generate_shi_shen(self):
         day_master = self.get_day_master(day_pillar=self.gan_zhi_calendar.day)
@@ -86,16 +95,27 @@ class ChartGenerator(BaZiChartGenerateMixin, ShiShenGenerateMixin):
             dz_hour=self.gan_zhi_calendar.hour.di_zhi,
         )
 
-    def generate_main_destiny(self, flag:bool, num:int):
+    def generate_main_destiny(self, flag: bool, num: int) -> MainDestinyChart:
+        day_master = self.get_day_master(day_pillar=self.gan_zhi_calendar.day)
         main_destiny = self.get_main_destiny(
             month_pillar=self.gan_zhi_calendar.month,
             flag_for_gender_and_chinese_zodiac=flag,
             num=num
         )
+
         tmp = []
-        for index,(tg,dz,) in enumerate(main_destiny,start=1):
-            tmp.append(PillarItem(name=f"大运{(index-1)*10}-{index*10}",tian_gan=tg,di_zhi=dz))
-        return tmp
+        for index, (tg, dz) in enumerate(main_destiny):
+            _pillar = PillarItem(name=str(index), tian_gan=tg, di_zhi=dz)
+            tmp.append(
+                MainDestinyItem(
+                    schedule=(index * 10, index * 10 + 10),
+                    origin_item=PillarItem(name=str(index), tian_gan=tg, di_zhi=dz),
+                    shi_shen=self._get_shi_shen(day_master=day_master, pillar=_pillar)
+                )
+            )
+            # tmp.append(f"{tg.type.value}{dz.type.value}")
+        return MainDestinyChart(num=num, items=tmp)
+
 
 class ChartConf:
     _chart_conf: dict[str, Any]
