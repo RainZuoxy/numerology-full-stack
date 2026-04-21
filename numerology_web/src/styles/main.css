@@ -1,0 +1,154 @@
+/* ==== 主题调色板（通过 <html data-theme="..."> 切换） ==== */
+
+/* 默认：水墨 · 宣纸 */
+:root,
+:root[data-theme="inkwash"] {
+  --bg: #f3ece1;
+  --bg-top: #f7efe1;
+  --bg-soft: #ebe2d2;
+  --paper: #fbf6ea;
+  --ink: #1f1a15;
+  --ink-soft: #4a3f34;
+  --muted: #8a7e6c;
+  --line: #c9b89a;
+  --accent: #9b2d20;
+  --accent-soft: #c36a50;
+  --gold: #a8814b;
+  --shadow: 0 2px 8px rgba(40, 28, 18, 0.08);
+}
+
+/* 醉花荫：桃珊 · 叶青 · 暖杏 */
+:root[data-theme="zuihuayin"] {
+  --bg: #fff5ea;
+  --bg-top: #ffe9d6;
+  --bg-soft: #ffe0c6;
+  --paper: #fffaf1;
+  --ink: #3d2a1f;
+  --ink-soft: #6b4a38;
+  --muted: #9a7a62;
+  --line: #92A470;          /* 叶青 */
+  --accent: #EC776E;         /* 朱珊 */
+  --accent-soft: #FEB48E;    /* 桃粉 */
+  --gold: #FFBC8F;           /* 暖杏 */
+  --shadow: 0 2px 10px rgba(236, 119, 110, 0.12);
+}
+
+/* 沁园春：烟波 · 天水 · 桃腮 */
+:root[data-theme="qinyuanchun"] {
+  --bg: #eef5fb;
+  --bg-top: #D7E8F8;
+  --bg-soft: #c7ddf0;
+  --paper: #f6fbff;
+  --ink: #205064;            /* 深青 */
+  --ink-soft: #3d6e85;
+  --muted: #76A4B3;          /* 烟波灰蓝 */
+  --line: #a9c5d2;
+  --accent: #ECA7A7;         /* 桃腮 */
+  --accent-soft: #f5c4c4;
+  --gold: #76A4B3;
+  --shadow: 0 2px 10px rgba(32, 80, 100, 0.12);
+}
+
+/* 青玉案：松烟 · 苔色 · 新篁 */
+:root[data-theme="qingyuan"] {
+  --bg: #f2f6ef;
+  --bg-top: #e6f0dc;
+  --bg-soft: #d9e7ce;
+  --paper: #f8fbf5;
+  --ink: #1f3a28;            /* 松烟 */
+  --ink-soft: #367349;
+  --muted: #86A993;          /* 雾青 */
+  --line: #92AE71;           /* 新篁 */
+  --accent: #367349;         /* 深松 */
+  --accent-soft: #97CA9B;    /* 苔色 */
+  --gold: #92AE71;
+  --shadow: 0 2px 10px rgba(54, 115, 73, 0.12);
+}
+
+/* ==== 全局基础 ==== */
+:root {
+  --radius: 2px;
+  --font-serif: "STSong", "SimSun", "Noto Serif SC", "Songti SC", serif;
+  --font-hand:  "STKaiti", "KaiTi", "Noto Serif SC", serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-serif);
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 800px at 50% -10%, var(--bg-top) 0%, var(--bg) 60%),
+    var(--bg);
+  min-height: 100vh;
+  letter-spacing: 0.02em;
+  transition: background-color 0.25s;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-soft); }
+
+button {
+  font-family: var(--font-serif);
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 8px 20px;
+  cursor: pointer;
+  letter-spacing: 0.2em;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+button:hover { background: var(--accent); border-color: var(--accent); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+button.ghost:hover { background: var(--ink); color: var(--paper); }
+
+input, select {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  outline: none;
+  width: 100%;
+}
+input:focus, select:focus { border-color: var(--accent); }
+
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.vertical-title {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.5em;
+  color: var(--accent);
+  font-family: var(--font-hand);
+}
+
+.ink-divider {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--line), transparent);
+  margin: 20px 0;
+}
